@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>My Mobile Website</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    :root {
+      --bg: #050816;
+      --bg-soft: #0f172a;
+      --accent: #4f46e5;
+      --accent-soft: rgba(79, 70, 229, 0.15);
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --border: #1f2937;
+      --radius: 14px;
+      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.55);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: radial-gradient(circle at top, #111827 0, #020617 45%, #000 100%);
+      color: var(--text);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Layout */
+    .page {
+      min-height: 100vh;
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 14px 12px 32px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.92);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      backdrop-filter: blur(18px);
+      position: sticky;
+      top: 10px;
+      z-index: 10;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+    }
+
+    header .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #4f46e5, #22c55e);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+      color: white;
+      box-shadow: 0 0 0 3px rgba(15, 23, 42, 1);
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      font-size: 13px;
+    }
+
+    .brand-text span:first-child {
+      font-weight: 600;
+      letter-spacing: 0.03em;
+    }
+
+    .brand-text span:last-child {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    nav {
+      display: flex;
+      gap: 10px;
+      font-size: 12px;
+    }
+
+    nav a {
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      text-decoration: none;
+      color: var(--muted);
+      background: transparent;
+      transition: all 0.18s ease;
+    }
+
+    nav a:hover {
+      border-color: rgba(148, 163, 184, 0.6);
+      color: var(--text);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    nav a.active {
+      background: linear-gradient(135deg, #4f46e5, #22c55e);
+      color: white;
+      border-color: transparent;
+      box-shadow: 0 10px 30px rgba(79, 70, 229, 0.6);
+    }
+
+    /* Sections */
+    main {
+      margin-top: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    section {
+      background: radial-gradient(circle at top, #111827 0, #020617 60%);
+      border-radius: 24px;
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      padding: 18px 18px 20px;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    section::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(79, 70, 229, 0.08), transparent 55%),
+        radial-gradient(circle at 100% 100%, rgba(34, 197, 94, 0.08), transparent 45%);
+      opacity: 0.85;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      gap: 10px;
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 650;
+      letter-spacing: 0.03em;
+    }
+
+    .section-pill {
+      font-size: 11px;
+      color: var(--muted);
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(12px);
+      white-space: nowrap;
+    }
+
+    .hero-text-main {
+      font-size: 20px;
+      font-weight: 650;
+      margin-bottom: 6px;
+    }
+
+    .hero-text-sub {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .tag {
+      font-size: 11px;
+      padding: 5px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--muted);
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .btn-primary,
+    .btn-ghost {
+      font-size: 13px;
+      border-radius: 999px;
+      padding: 7px 14px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #4f46e5, #22c55e);
+      color: white;
+      box-shadow: 0 12px 30px rgba(79, 70, 229, 0.6);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border-color: rgba(148, 163, 184, 0.5);
+    }
+
+    /* Cards */
+    .cards {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-top: 4px;
+    }
+
+    .card {
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: rgba(15, 23, 42, 0.96);
+      padding: 10px 11px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .card-title {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .card-body {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .card-badge-row {
+      margin-top: 4px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-size: 10px;
+    }
+
+    .badge {
+      padding: 3px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      color: var(--muted);
+    }
+
+    /* Contact section */
+    .contact-row {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 6px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .contact-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #6b7280;
+    }
+
+    .contact-highlight {
+      font-size: 15px;
+      color: var(--text);
+      font-weight: 520;
+    }
+
+    .divider {
+      margin: 10px 0;
+      border: 0;
+      border-top: 1px dashed rgba(148, 163, 184, 0.35);
+    }
+
+    footer {
+      margin-top: 18px;
+      text-align: center;
+      font-size: 11px;
+      color: #6b7280;
+    }
+
+    /* Responsive */
+    @media (min-width: 640px) {
+      .page {
+        padding: 18px 20px 32px;
+      }
+
+      .hero-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+        gap: 12px;
+        align-items: center;
+      }
+
+      .cards {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .contact-row {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="brand">
+        <div class="avatar">Y</div>
+        <div class="brand-text">
+          <span>Your Name</span>
+          <span>Personal mobile website</span>
+        </div>
+      </div>
+      <nav>
+        <a href="#home" class="active">Home</a>
+        <a href="#about">About</a>
+        <a href="#projects">Work</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <!-- HERO -->
+      <section id="home">
+        <div class="section-header">
+          <div class="section-title">Hey, I’m <span style="color:#a5b4fc;">Your Name</span></div>
+          <div class="section-pill">Made for mobile · Runs offline</div>
+        </div>
+
+        <div class="hero-layout">
+          <div>
+            <div class="hero-text-main">
+              A tiny, personal website<br>designed to live on your phone.
+            </div>
+            <div class="hero-text-sub">
+              Edit this text to turn it into your own portfolio, landing page,
+              or link‑in‑bio. No server needed — just open this file in your browser.
+            </div>
+
+            <div class="hero-tags">
+              <span class="tag">Mobile‑first</span>
+              <span class="tag">Offline‑ready</span>
+              <span class="tag">Single HTML file</span>
+            </div>
+
+            <div class="cta-row">
+              <a href="#projects" class="btn-primary">See my work</a>
+              <a href="#contact" class="btn-ghost">Contact me</a>
+            </div>
+          </div>
+
+          <div>
+            <div class="card" style="height:100%;">
+              <div class="card-title">How to make it yours</div>
+              <div class="card-body">
+                - Change <b>Your Name</b> and the texts in each section.<br>
+                - Add your social links in the contact area.<br>
+                - Save as <code>index.html</code> and open it on your phone.
+              </div>
+              <div class="card-badge-row">
+                <span class="badge">HTML only</span>
+                <span class="badge">No framework</span>
+                <span class="badge">Works on Android & iOS</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ABOUT -->
+      <section id="about">
+        <div class="section-header">
+          <div class="section-title">About me</div>
+          <div class="section-pill">Who I am</div>
+        </div>
+        <p style="font-size:13px;color:var(--muted);">
+          Write a short bio here. For example:
+          <br><br>
+          I’m <b>Your Name</b>, a [student / designer / developer / creator] who loves
+          building things that fit in your pocket. This little site is a single file
+          that you can carry everywhere, customize, and share.
+          <br><br>
+          Replace this text with your own story, skills, or anything you want people
+          to know the first time they land on your page.
+        </p>
+      </section>
+
+      <!-- PROJECTS / HIGHLIGHTS -->
+      <section id="projects">
+        <div class="section-header">
+          <div class="section-title">Highlights</div>
+          <div class="section-pill">Projects · Skills · Links</div>
+        </div>
+
+        <div class="cards">
+          <div class="card">
+            <div class="card-title">Project One</div>
+            <div class="card-body">
+              Brief description of something you’re proud of
+              (app, design, artwork, anything). Add a link or date if you want.
+            </div>
+            <div class="card-badge-row">
+              <span class="badge">Tag 1</span>
+              <span class="badge">Tag 2</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">Project Two</div>
+            <div class="card-body">
+              Another short highlight. You can link to an Instagram, GitHub,
+              Behance, or any page you like from here.
+            </div>
+            <div class="card-badge-row">
+              <span class="badge">Design</span>
+              <span class="badge">Creative</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">Skills</div>
+            <div class="card-body">
+              List your key skills or interests: coding, editing, photography,
+              writing, gaming, anything you want.
+            </div>
+            <div class="card-badge-row">
+              <span class="badge">Skill A</span>
+              <span class="badge">Skill B</span>
+              <span class="badge">Skill C</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">Links</div>
+            <div class="card-body">
+              Replace this with your real links:<br>
+              • Instagram / X / TikTok<br>
+              • Portfolio<br>
+              • YouTube / GitHub
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section id="contact">
+        <div class="section-header">
+          <div class="section-title">Contact</div>
+          <div class="section-pill">Let’s talk</div>
+        </div>
+
+        <div class="contact-row">
+          <div>
+            <div class="contact-label">Primary</div>
+            <div class="contact-highlight">
+              yourname@example.com
+            </div>
+          </div>
+          <div>
+            <div class="contact-label">Social</div>
+            <div style="font-size:13px;color:var(--muted);">
+              IG: @yourhandle · X: @yourhandle
+            </div>
+          </div>
+        </div>
+
+        <hr class="divider" />
+
+        <p style="font-size:12px;color:var(--muted);">
+          Tip: on your phone, you can set this file as a home‑screen shortcut so it
+          feels like a real app.
+        </p>
+      </section>
+    </main>
+
+    <footer>
+      Made in one HTML file · Customize freely
+    </footer>
+  </div>
+</body>
+</html>
